@@ -51,6 +51,10 @@ if yes?("Would you like to install Devise?")
     generate "devise", model_name
 end
 
+if yes?("Would you like to copy Devise views to your project?")
+    rails_command "rails generate devise:views"
+end
+
 ## add devise configuration to config/environments/development.rb
 environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }", env: 'development'
 
