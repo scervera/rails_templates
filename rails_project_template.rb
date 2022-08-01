@@ -1,6 +1,9 @@
 ## To use this template file run the rails new command like this:
 ## rails new app-name -m template.rb
 
+## To install a specific version of rails AND this template use the command below:
+## rails _version_ new app-name -m template.rb
+
 # require "bundler"
 # require "json"
 # RAILS_REQUIREMENT = "~> 7.0.0".freeze
