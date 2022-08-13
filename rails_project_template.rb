@@ -64,11 +64,15 @@ environment "config.action_mailer.default_url_options = { host: 'localhost', por
 ## --------------------------------------------------------------------- ##
 
 ## TAILWINDCSS
+## Rails 7 now incluses the -css option to install different css frameworks
+## Currently, this generator supports the options tailwind, bootstrap, bulma, sass, and postcss
+## rails new myapp --css tailwind
 ## Install and configure TailwindCSS
-if yes?("Would you like to install TailwindCSS?")
-    gem 'tailwindcss-rails'
-    run "./bin/rails tailwindcss:install"
-end
+# if yes?("Would you like to install TailwindCSS?")
+#     gem 'tailwindcss-rails'
+#     run "./bin/rails tailwindcss:install"
+# end
+
 
 
 ## Finish Up
