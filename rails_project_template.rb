@@ -1,8 +1,8 @@
 ## To use this template file run the rails new command like this:
 ## rails new app-name -m template.rb
 
-## To install a specific version of rails AND this template use the command below:
-## rails _version_ new app-name -m template.rb
+## To install a specific version of rails AND this template AND tailwindcss use the command below:
+## rails _version_ new app-name -m template.rb --css tailwind
 
 # require "bundler"
 # require "json"
@@ -14,8 +14,9 @@
 gem_group :development do
     gem "capistrano", "~> 3.10", require: false
     gem "capistrano-rails", "~> 1.6", require: false
-    gem 'annotate'
+    gem 'annotate' ## rails g annotate:install
     # gem 'meta_request', '~> 0.7.3'  Note: This is not compatible with Rails 7+
+    gem 'syntax_suggest' #https://github.com/ruby/syntax_suggest
 end
 
 gem_group :development, :test do
@@ -32,6 +33,7 @@ gem 'pry'
 gem 'amazing_print'
 gem 'sidekiq'
 gem 'ransack'
+gem "aws-sdk-s3", require: false
 
 ## --------------------------------------------------------------------- ##
 
@@ -73,7 +75,9 @@ environment "config.action_mailer.default_url_options = { host: 'localhost', por
 #     run "./bin/rails tailwindcss:install"
 # end
 
-
+## Install annotate gem rake commands
+## See https://github.com/ctran/annotate_models
+rails_command "rails g annotate:install"
 
 ## Finish Up
 rails_command "db:migrate"
