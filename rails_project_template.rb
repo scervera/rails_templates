@@ -41,7 +41,14 @@ gem "aws-sdk-s3", require: false
 ## Install and configure Active Storage
 if yes?("Would you like to install Active Storage?")
     rails_command "active_storage:install"
-    # rails_command "db:migrate"
+end
+
+## --------------------------------------------------------------------- ##
+
+## ACTIVE TEXT
+## Install and configure Active Text
+if yes?("Would you like to install Active Text?")
+    rails_command "action_text:install"
 end
 
 ## --------------------------------------------------------------------- ##
