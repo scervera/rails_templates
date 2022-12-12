@@ -4,6 +4,9 @@
 ## To install a specific version of rails AND this template AND tailwindcss use the command below:
 ## rails _version_ new app-name -m template.rb --css tailwind
 
+## FOR TAILWIND CSS
+## You must launch the server in the dev environment with $ ./bin/dev instead of $ rails s
+
 # require "bundler"
 # require "json"
 # RAILS_REQUIREMENT = "~> 7.0.0".freeze
