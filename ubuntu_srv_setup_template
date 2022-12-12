@@ -1,0 +1,62 @@
+#!/bin/bash
+
+ADMIN_USER="ubuntu"
+DEPLOY_USERNAME="deploy"
+DEPLOY_PASSWD="shoat-reactive-side-takeoff"
+## RUBY_VERSION=“2.5"
+ID_RSA_PUB="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/GR9cza0pVq8/udutr7nR5alux78pYv28sZxBvhN4kHZXFiAyoN8stxDCxoSMZZMMZJqkCPe7U7sg56WZyB7+KVKTvW4sTY1mdPpy6ihrWf9/TbLztOgZ2qZYYqdDG0KVtL7QKXU4+6Ns4n1UHqtRs155AMmVypTmfX0CvKZVe0jbxt4jEldw1JLKq/B1lDFZECCASqVsbKGhZBGi3ujiwaLv0d7mMDLT5lNg+DdfrXMTs3jaif4242rUUtElQ33HMyDEVdpvOeZGuchqtUIwFkfDncvL7XUpzx/A3nKB4+ZsCdA778LRMrO3m0NMqB2Q1SitFsKrpEZs1c5nhnRH cervera1@mac.com"
+
+# Base OS and Package Build
+sudo apt-get update -y
+sudo apt-get install dkms -y
+sudo apt-get install build-essential zlib1g-dev libssl-dev libreadline-dev git-core curl libyaml-dev libcurl4-gnutls-dev libsqlite3-dev apache2-dev -y libmagickwand-dev
+## sudo apt-get install libmysqlclient-dev -y # if using mysql
+sudo apt-get install unzip -y
+sudo apt-get install zip -y
+sudo apt-get install ssh -y
+sudo apt-get install vim -y
+sudo apt-get install gnupg2 -y
+sudo apt-get install ntp -y
+sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+timedatectl
+sudo apt-get install imagemagick --fix-missing -y
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -   # check for latest version before installing
+sudo apt-get install -y nodejs
+sudo npm install -g yarn
+
+ssh-keygen -f ~/.ssh/id_rsa -P "" -t rsa  # creates ssh keypair used later
+
+## Create deploy user
+sudo useradd -d /home/$DEPLOY_USERNAME -m $DEPLOY_USERNAME -s /bin/bash
+sudo mkdir /home/$DEPLOY_USERNAME/.ssh
+sudo cp /home/$ADMIN_USER/.ssh/authorized_keys /home/$DEPLOY_USERNAME/.ssh/authorized_keys
+sudo chown -R $DEPLOY_USERNAME:$DEPLOY_USERNAME /home/$DEPLOY_USERNAME/.ssh/
+sudo chgrp -R $DEPLOY_USERNAME /home/$DEPLOY_USERNAME/.ssh/
+sudo chmod 700 /home/$DEPLOY_USERNAME/.ssh/
+sudo chmod 700 /home/$DEPLOY_USERNAME/.ssh/authorized_keys
+sudo echo "$DEPLOY_USERNAME:$DEPLOY_PASSWD" | sudo chpasswd
+sudo usermod -aG sudo $DEPLOY_USERNAME
+sudo echo "$ID_RSA_PUB" >>/home/$DEPLOY_USERNAME/.ssh/authorized_keys
+echo "public key successfully added to deploy user account's authorized_keys"
+
+
+#Install Apache
+sudo apt-get install apache2 -y
+
+##Install version specific Passenger - see https://www.phusionpassenger.com/docs/advanced_guides/install_and_upgrade/standalone/install/oss/jammy.html
+# Install our PGP key and add HTTPS support for APT
+sudo apt-get install -y dirmngr gnupg apt-transport-https ca-certificates curl
+curl https://oss-binaries.phusionpassenger.com/auto-software-signing-gpg-key.txt | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/phusion.gpg >/dev/null
+
+# Add our APT repository
+sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger jammy main > /etc/apt/sources.list.d/passenger.list'
+sudo apt-get update
+
+# Install Passenger
+sudo apt-get install -y passenger
+
+#validate Passenger installation
+sudo /usr/bin/passenger-config validate-install
+
+#If validation fails, you may need to run:
+#sudo /usr/bin/ruby3.0 /usr/bin/passenger-install-apache2-module --apxs2=/usr/bin/apxs2
