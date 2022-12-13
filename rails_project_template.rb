@@ -19,6 +19,7 @@ gem_group :development do
     gem "capistrano-rails", "~> 1.6", require: false
     gem 'capistrano-passenger', '~> 0.2.0'
     gem 'capistrano-rbenv', '~> 2.2'
+    gem 'capistrano-bundler', '~> 2.0'
     gem 'annotate' ## rails g annotate:install
     # gem 'meta_request', '~> 0.7.3'  Note: This is not compatible with Rails 7+
     gem 'syntax_suggest' #https://github.com/ruby/syntax_suggest
