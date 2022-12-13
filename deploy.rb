@@ -43,12 +43,21 @@ append :linked_files, "config/master.key"
 
 namespace :deploy do
   namespace :check do
+    # this checks to see if there is a master.key file on the server. If not, it copies the local file to the server.
     before :linked_files, :set_master_key do
       on roles(:app), in: :sequence, wait: 10 do
         unless test("[ -f #{shared_path}/config/master.key ]")
           upload! 'config/master.key', "#{shared_path}/config/master.key"
         end
       end
+    end
+    # this checks to see if there is a database.yml file on the server. If not, it copies the local file to the server.
+    before :linked_files, :set_database_yml do
+        on roles(:db), in: :sequence, wait: 10 do
+          unless test("[ -f #{shared_path}/config/database.yml ]")
+            upload! 'config/database.yml', "#{shared_path}/config/database.yml"
+          end
+        end
     end
   end
 

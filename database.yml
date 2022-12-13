@@ -81,6 +81,9 @@ test:
 #
 production:
   <<: *default
-  database: tesol  # CHANGE NAME OF DATABASE
-  username: deploy # DATABASE USERNAME
-  password: <%= Rails.application.credentials.dig(:tesol_database_password) %>  # CHANGE TO NAME OF PASSWORD CREATED IN CREDENTIALS FILE
+  database: db_sow2growindia  # CHANGE NAME OF DATABASE
+  username: dbadmin # DATABASE USERNAME
+  password: <%= Rails.application.credentials.dig(:app_database_password) %>  # CHANGE TO NAME OF PASSWORD CREATED IN CREDENTIALS FILE
+
+# To edit the credentials file using VS Code use the following command:
+#    EDITOR='code --wait' rails credentials:edit
