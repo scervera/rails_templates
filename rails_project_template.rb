@@ -2,7 +2,7 @@
 ## rails new app-name -m template.rb
 
 ## To install a specific version of rails AND this template AND tailwindcss use the command below:
-## rails _version_ new app-name -m template.rb --css tailwind
+## rails _version_ new app-name -m template.rb --css tailwind --database=postgresql
 
 ## FOR TAILWIND CSS
 ## You must launch the server in the dev environment with $ ./bin/dev instead of $ rails s
@@ -17,6 +17,8 @@
 gem_group :development do
     gem "capistrano", "~> 3.10", require: false
     gem "capistrano-rails", "~> 1.6", require: false
+    gem 'capistrano-passenger', '~> 0.2.0'
+    gem 'capistrano-rbenv', '~> 2.2'
     gem 'annotate' ## rails g annotate:install
     # gem 'meta_request', '~> 0.7.3'  Note: This is not compatible with Rails 7+
     gem 'syntax_suggest' #https://github.com/ruby/syntax_suggest
@@ -27,8 +29,6 @@ gem_group :development, :test do
     gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
-gem 'capistrano-passenger', '~> 0.2.0'
-gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 gem 'pundit'
 gem 'better_errors'
 gem 'binding_of_caller'
