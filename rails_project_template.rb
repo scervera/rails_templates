@@ -38,6 +38,10 @@ gem 'amazing_print'
 gem 'sidekiq'
 gem 'ransack'
 gem "aws-sdk-s3", require: false
+gem 'jsbundling-rails'
+gem "openai"
+gem 'streamio-ffmpeg', '~> 3.0', '>= 3.0.2'
+gem 'responders', '>= 3.1.0'
 
 ## --------------------------------------------------------------------- ##
 
@@ -51,9 +55,9 @@ end
 
 ## ACTIVE TEXT
 ## Install and configure Active Text
-if yes?("Would you like to install Active Text?")
-    rails_command "action_text:install"
-end
+# if yes?("Would you like to install Active Text?")
+#     rails_command "action_text:install"
+# end
 
 ## --------------------------------------------------------------------- ##
 
@@ -88,7 +92,7 @@ environment "config.action_mailer.default_url_options = { host: 'localhost', por
 
 ## Install annotate gem rake commands
 ## See https://github.com/ctran/annotate_models
-rails_command "rails g annotate:install"
+## rails_command "rails g annotate:install"
 
 ## Finish Up
 rails_command "db:migrate"
