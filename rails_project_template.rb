@@ -23,25 +23,27 @@ gem_group :development do
     gem 'annotate' ## rails g annotate:install
     # gem 'meta_request', '~> 0.7.3'  Note: This is not compatible with Rails 7+
     gem 'syntax_suggest' #https://github.com/ruby/syntax_suggest
+    gem "web-console"
+    gem 'capistrano-sidekiq'
 end
 
 gem_group :development, :test do
-    # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-    gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+    gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
-gem 'pundit'
-gem 'better_errors'
-gem 'binding_of_caller'
-gem 'pry'
-gem 'amazing_print'
+# gem 'pundit'
+# gem 'better_errors'
+# gem 'binding_of_caller'
+# gem 'pry'
+# gem 'amazing_print'
 gem 'sidekiq'
-gem 'ransack'
+# gem 'ransack'
 gem "aws-sdk-s3", require: false
-gem 'jsbundling-rails'
-gem "openai"
+# gem 'jsbundling-rails'
+# gem "openai"
+# gem "ruby-openai"
 gem 'streamio-ffmpeg', '~> 3.0', '>= 3.0.2'
-gem 'responders', '>= 3.1.0'
+# gem 'responders', '>= 3.1.0'
 
 ## --------------------------------------------------------------------- ##
 
